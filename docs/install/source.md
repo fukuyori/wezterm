@@ -69,3 +69,7 @@ of perl is required to build openssl on Windows.
 $ set PATH=c:\Strawberry\perl\bin;%PATH%
 ```
 
+For a PowerShell Release build and an Inno Setup installer with optional
+executable, installer and uninstaller signing, see
+[Windows Release build and installer](../windows-build.md).
+

@@ -7,6 +7,9 @@
 #define MyAppPublisher "Wez Furlong"
 #define MyAppURL "http://wezterm.org"
 #define MyAppExeName "wezterm-gui.exe"
+#ifndef WezTermSourceDir
+  #define WezTermSourceDir "..\target\release"
+#endif
 
 [Setup]
 AppId={{BCF6F0DA-5B9A-408D-8562-F680AE6E1EAF}
@@ -35,6 +38,10 @@ WizardStyle=modern
 ; Build 1809 is required for pty support
 MinVersion=10.0.17763
 ChangesEnvironment=true
+#ifdef WezTermSign
+SignTool=weztermsign
+SignedUninstaller=yes
+#endif
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -43,15 +50,18 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\target\release\wezterm.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\wezterm-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\wezterm-mux-server.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\mesa\opengl32.dll"; DestDir: "{app}\mesa"; Flags: ignoreversion
-Source: "..\target\release\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\conpty.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\OpenConsole.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\target\release\strip-ansi-escapes.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\wezterm.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\wezterm-gui.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\wezterm-mux-server.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\mesa\opengl32.dll"; DestDir: "{app}\mesa"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\libEGL.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\libGLESv2.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\conpty.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\OpenConsole.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#WezTermSourceDir}\strip-ansi-escapes.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\licenses\*"; DestDir: "{app}\licenses"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\assets\fonts\LICENSE*.txt"; DestDir: "{app}\licenses\fonts"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
